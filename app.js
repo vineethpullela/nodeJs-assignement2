@@ -100,3 +100,75 @@ app.get("/user/tweets/feed/", async (request, response) => {
   const tweetList = await db.all(getTweetsQuery);
   response.send(tweetList);
 });
+
+//API 4
+
+app.get("/user/following/", async (request, response) => {
+  const getFollowersQuery = `select distinct user.name from user inner join follower on user.user_id= follower.follower_user_id ;`;
+  const followersList = await db.all(getFollowersQuery);
+  response.send(followersList);
+});
+
+//API 5
+
+app.get("user/followers/", async (request, response) => {
+  const getUserFollowersQuery = `select user.name from user inner join follower on user.user_id = follower.follower_user_id;`;
+  const userFollowersList = await db.all(getUserFollowersQuery);
+  response.send(userFollowersList);
+});
+
+//API 6
+
+/*app.get("/tweets/:tweetId/", async (request, response) => {
+  const { tweetId } = request.params;
+  const getTweetQuery = ` SELECT
+    *
+  FROM
+    tweet INNER JOIN follower ON tweet.user_id = follower.following_user_id
+  WHERE
+    tweet_id = ${tweetId};`;
+  const tweet = db.get(getTweetQuery);
+  if (tweet === undefined) {
+    response.status();
+    response.send("");
+  } else {
+    const getLikesCountQuery = `SELECT
+    count(*) as likesCount
+  FROM
+    tweet INNER JOIN like ON tweet.user_id = like.user_id
+  WHERE
+    like.tweet_id = ${tweetId};`;
+    const likesCount = await db.all(getLikesCountQuery);
+
+    const getReplyCountQuery = `SELECT
+    count(*) as replyCount
+  FROM
+    tweet INNER JOIN reply ON tweet.user_id = tweet.user_id
+  WHERE
+    tweet.tweet_id = ${tweetId};`;
+    const replyCount = await db.all(getReplyCountQuery);
+
+    response.send({
+      tweet: tweet["tweet"],
+      likes: likesCount[0]["likesCount"],
+      replies: replyCount[0]["replyCount"],
+      dateTime: tweet["date_time"],
+    });
+    response.send(tweet);
+  }
+});*/
+
+app.get("/tweets/:tweetId/", async (request, response) => {
+  const { tweetId } = request.params;
+  const username = "Narendra Modi";
+  const getTweetsQuery = `SELECT
+    count(*) as replyCount
+  FROM
+    tweet INNER JOIN reply ON tweet.user_id = tweet.user_id
+  WHERE
+    tweet.tweet_id = ${tweetId}
+     ;`;
+
+  const tweets = await db.get(getTweetsQuery);
+  response.send({ replyCount: tweets["replyCount"] });
+});

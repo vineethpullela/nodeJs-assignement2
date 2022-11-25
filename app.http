@@ -16,3 +16,21 @@ Content-Type: application/json
   "username": "adam_richard",
   "password": "richard_567"
 }
+
+###
+
+
+GET http://localhost:3008/user/tweets/feed/
+###
+
+GET http://localhost:3008/user/following/
+
+###
+
+GET http://localhost:3008/user/followers/
+
+###
+
+
+GET http://localhost:3008/tweets/1/
+##
