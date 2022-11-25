@@ -32,5 +32,13 @@ GET http://localhost:3008/user/followers/
 ###
 
 
-GET http://localhost:3008/tweets/1/
-##
+GET http://localhost:3008/tweets/1022/
+###
+
+GET http://localhost:3008/tweets/4025/likes/
+###
+
+GET http://localhost:3008/tweets/1/replies/
+###
+
+GET http://localhost:3008/user/tweets/
