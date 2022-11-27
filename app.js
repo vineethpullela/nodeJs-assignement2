@@ -277,7 +277,7 @@ app.post("/user/tweets/", authentication, async (request, response) => {
 
 //API 11
 
-app.delete("/tweets/:tweetId/", authentication, async (request, response) => {
+app.delete("tweets/:tweetId/", authentication, async (request, response) => {
   const { username } = request;
   const userId = await getUserId(username);
   const { tweetId } = request.params;
